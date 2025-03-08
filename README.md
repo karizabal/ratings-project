@@ -1,2 +1,2 @@
-# recipes-and-ratings
-Final Project for DSC 80 course at UCSD.
+# Analysis of Health and Diet through Recipes and Ratings
+DSC 80 Final Project
