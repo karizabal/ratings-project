@@ -1,1 +1,1 @@
-# Analyzing Diet and Health Trends Through Recipes and Ratings
+# Exploring the Effect of Diet Health on Recipe Ratings
