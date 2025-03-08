@@ -1,2 +1,2 @@
-# Analysis of Health and Diet through Recipes and Ratings
+# Analyzing Diet and Health Trends Through Recipes and Ratings
 DSC 80 Final Project
