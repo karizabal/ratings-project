@@ -1,6 +1,6 @@
 # Exploring the Effect of Diet Health on Recipe Ratings
 
-Exploring the Effect of Diet Health on Recipe Ratings is a data science project conducted at UCSD. This project investigates the relationship of ratings of online-published recipes and their perceived dietary health through methods such as exploratory data analysis, hypothesis testing, and predictive modeling. The following provides a comprehensive report of this investigation. 
+Exploring the Effect of Diet Health on Recipe Ratings is a data science project conducted at UCSD. This project investigates the relationship of ratings of online-published recipes and their perceived dietary health through methods such as exploratory data analysis, hypothesis testing, and predictive modeling. The following provides a report of this investigation. 
 
 Author(s): Kai Arizabal
 
@@ -59,6 +59,8 @@ Before any exploration of the data, cleaning the data is necessary for efficient
 
 6. Cleaning the `'nutrition'` column, which was stored as a string object. I split the information into the following individual columns (as floats): `'calories (#)', 'total fat (PDV)', 'sugar (PDV)', 'sodium (PDV)', 'protein (PDV)', 'saturated fat (PDV)', 'carbohydrates (PDV)'`
 
+    1. I also divide the nutrients recorded in PDV by 100 to get them as decimals. This makes their data more representative of percentages offering more consistency and interpretability.
+
 7. Using the `'tags'` column, I add the column `'diet'` that specifies if and what diet the recipe is most appropriate for. If the recipe is not apparently diet-specific, then the value is `np.nan`. This process involved:
 
     1. Cleaning the `'tags'` column, which was originally stored as a string object. After cleaning, the `'tags'` column contain lists of strings.
@@ -82,11 +84,11 @@ After this cleaning process, I choose only the relevant columns for hypothesis t
 
 | name                                 |     id |   minutes |   rating |   avg_rating |   calories (#) |   total fat (PDV) |   sugar (PDV) |   sodium (PDV) |   protein (PDV) |   saturated fat (PDV) |   carbohydrates (PDV) |   diet | is_diet_specific   |
 |:-------------------------------------|-------:|----------:|---------:|-------------:|---------------:|------------------:|--------------:|---------------:|----------------:|----------------------:|----------------------:|-------:|:-------------------|
-| 1 brownies in the world    best ever | 333281 |        40 |        4 |            4 |          138.4 |                10 |            50 |              3 |               3 |                    19 |                     6 |    nan | False              |
-| 1 in canada chocolate chip cookies   | 453467 |        45 |        5 |            5 |          595.1 |                46 |           211 |             22 |              13 |                    51 |                    26 |    nan | False              |
-| 412 broccoli casserole               | 306168 |        40 |        5 |            5 |          194.8 |                20 |             6 |             32 |              22 |                    36 |                     3 |    nan | False              |
-| 412 broccoli casserole               | 306168 |        40 |        5 |            5 |          194.8 |                20 |             6 |             32 |              22 |                    36 |                     3 |    nan | False              |
-| 412 broccoli casserole               | 306168 |        40 |        5 |            5 |          194.8 |                20 |             6 |             32 |              22 |                    36 |                     3 |    nan | False              |
+| 1 brownies in the world    best ever | 333281 |        40 |        4 |            4 |          138.4 |              0.1  |          0.5  |           0.03 |            0.03 |                  0.19 |                  0.06 |    nan | False              |
+| 1 in canada chocolate chip cookies   | 453467 |        45 |        5 |            5 |          595.1 |              0.46 |          2.11 |           0.22 |            0.13 |                  0.51 |                  0.26 |    nan | False              |
+| 412 broccoli casserole               | 306168 |        40 |        5 |            5 |          194.8 |              0.2  |          0.06 |           0.32 |            0.22 |                  0.36 |                  0.03 |    nan | False              |
+| 412 broccoli casserole               | 306168 |        40 |        5 |            5 |          194.8 |              0.2  |          0.06 |           0.32 |            0.22 |                  0.36 |                  0.03 |    nan | False              |
+| 412 broccoli casserole               | 306168 |        40 |        5 |            5 |          194.8 |              0.2  |          0.06 |           0.32 |            0.22 |                  0.36 |                  0.03 |    nan | False              |
 
 **NOTE**: Should any columns require further cleaning for the hypothesis testing or predictive modeling specifically, the adjustments will be included at those steps. 
 
@@ -106,13 +108,43 @@ Of these columns, the most likely to be not missing at random (NMAR) is `'descri
 
 ### Missingness Dependency
 
+Among the remaining three columns, I have the least information on the `'rating'` column. Therefore, I will test the missingness dependency of `'rating'` on columns `'calories (#)'` and `'minutes'`.
+
+The test statistic is the absolute difference in means, and the significance level is 0.05.
+
+I will first test the dependency of `'rating'` on `'calories (#)'`.
+
+**Null Hypothesis:** The distributions of `'calories (#)'` are the same whether `'rating'` is missing or not. 
+
+**Alternative Hypothesis:** The distributions of `'calories (#)'` are **not** the same if `'rating'` is missing or not. 
+
+<iframe
+  src='assets/calories-dependency-test.html'
+  width='900'
+  height='500'
+  frameborder='0'
+></iframe>
+
+Now, I will test the dependency of `'rating'` on `'minutes'`.
+
+**Null Hypothesis:** The distributions of `'minutes'` are the same whether `'rating'` is missing or not. 
+
+**Alternative Hypothesis:** The distributions of `'minutes'` are **not** the same if `'rating'` is missing or not. 
+
+<iframe
+  src='assets/minutes-dependency-test.html'
+  width='900'
+  height='500'
+  frameborder='0'
+></iframe>
+
 ## Hypothesis Testing
 
 For the research question **do healthier diets tend to have higher ratings?**, I test whether there is a signficant difference in the ratings between diet-specific recipes or non-diet recipes. This hypothesis test will therefore provide basic insight into the public preferences of food diets, specifically into the perception of healthy diets. The alternative hypothesis claims that diet-specific recipes may be rated **higher** than non-diet recipes, under this perception of **increased health benefits** because of careful nutrient intake.
 
 **Null Hypothesis:** There is no difference between the average ratings for diet-specific and non-specific recipes.
 
-**Alternative Hypothesis:** Diet-specific recipes have higher average ratings compared to nonspecificc recipes. 
+**Alternative Hypothesis:** Diet-specific recipes have higher average ratings compared to nonspecific recipes. 
 
 **Test Statistic:** The difference in mean average ratings between the diet-specific and nonspecific recipes. 
 
@@ -126,5 +158,7 @@ The plot below is the histogram containing the distribution of mean differences 
 
 <iframe
   src='assets/hypothesis-test.html'
+  width='900'
+  height='500'
   frameborder='0'
 ></iframe>
