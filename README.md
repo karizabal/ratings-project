@@ -1,16 +1,14 @@
 # Exploring the Effect of Diet Health on Recipe Ratings
 
-Exploring the Effect of Diet Health on Recipe Ratings is a data science project conducted at UCSD. This project investigates the relationship of ratings of online-published recipes and their perceived dietary health through methods such as exploratory data analysis, hypothesis testing, and predictive modeling. The following provides a report of this investigation. 
+Exploring the Effect of Diet Health on Recipe Ratings is a data science project conducted at UCSD. This project investigates the relationship of ratings of online published recipes and their health benefits through methods such as exploratory data analysis, hypothesis testing, and predictive modeling. The following provides a report of this investigation. 
 
 Author(s): Kai Arizabal
 
 ## Introduction
 
-Maintaining a balanced diet is essential to good health. Proper nutrition reduces malnutrition and provides greater immunity to chronic diseases. However, in today's era of over- production and consumption, sustaining a healthy diet requires more involvement, such as learning to balance nutrients, reduce sodium and sugar intake, and avoid processed foods. Although the best diet varies between individuals, there are basic principles to all healthy diets. Understanding these specificities is made easier through online resources. 
+Having a balanced diet is essential for maintaining a healthy life. Proper diets provide necessary nutrition, ultimately boosting immunity against chronic diseases and improving physical and emotional health. Although the best diets vary between individuals, all healthy diets follow the same basic principles. Sustaining a healthy diet requires balancing nutrients, reducing sodium and sugar intake, and avoiding processed foods. Using datasets containing recipes and ratings from [food.com](https://www.food.com/) (originally scraped by Prasad Majumder et al. for their research into generating personalized recipes), this project investigates public preferences of health and diet. 
 
-Using datasets containing recipes and ratings from [food.com](https://www.food.com/) (originally scraped by Prasad Majumder et al. for their research into generating personalized recipes), this project investigates public preferences for health and diet. The research question guiding this project is: **Do healthier diets tend to have higher ratings?** 
-
-Exploring this question provides insight into public perception of food choices, especially if healthy diets are rated based on a bias of perceived health or taste.
+The research question guiding this project is: **Do healthier diets tend to have higher ratings?** Exploring this question provides insight into popular diets, particularly if healthy foods are rated based on their health benefits, taste, or convenience, therefore elucidating the best diets for a healthy life.
 
 The first dataset `recipes` has 83782 rows and 12 columns, containing the following information:
 
@@ -120,7 +118,7 @@ I will first test the dependency of `'rating'` on `'calories (#)'`.
 
 <iframe
   src='assets/calories-dependency-test.html'
-  width='900'
+  width='800'
   height='500'
   frameborder='0'
 ></iframe>
@@ -133,14 +131,14 @@ Now, I will test the dependency of `'rating'` on `'minutes'`.
 
 <iframe
   src='assets/minutes-dependency-test.html'
-  width='900'
+  width='800'
   height='500'
   frameborder='0'
 ></iframe>
 
 ## Hypothesis Testing
 
-For the research question **do healthier diets tend to have higher ratings?**, I test whether there is a signficant difference in the ratings between diet-specific recipes or non-diet recipes. This hypothesis test will therefore provide basic insight into the public preferences of food diets, specifically into the perception of healthy diets. The alternative hypothesis claims that diet-specific recipes may be rated **higher** than non-diet recipes, under this perception of **increased health benefits** because of careful nutrient intake.
+For the research question **do healthier diets tend to have higher ratings?**, I test whether there is a signficant difference in the ratings between diet-specific recipes or non-diet recipes. This hypothesis test will therefore provide basic insight into the public preferences of food diets, specifically into those of healthy diets. The alternative hypothesis claims that diet-specific recipes may be rated **higher** than non-diet recipes, under this perception of **increased health benefits** because of careful nutrient intake.
 
 **Null Hypothesis:** There is no difference between the average ratings for diet-specific and non-specific recipes.
 
