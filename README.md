@@ -98,7 +98,11 @@ After this cleaning process, I choose only the relevant columns for hypothesis t
 
 ## Assessment of Missingness
 
+In the dataset, there are four columns containing a significant number of missing values: `'description'`, `'rating'`, `'avg_rating'`, and `'diet'`.
+
 ### NMAR Analysis
+
+Of these columns, the most likely to be not missing at random (NMAR) is `'description'`. NMAR suggests that the missingness of the value depends on the data itself. The description may be missing because the contributer may have not been inclined to provide any additional information if the recipe is straight-forward or self-explanatory. Therefore, if the contributer decided to not include a description, there would be missing values in the dataset. Since the missingness depends on if a description is provided or not, `'description'` may be NMAR.
 
 ### Missingness Dependency
 
@@ -121,8 +125,6 @@ I test under the null using a permutation test of 5000 simulations. **The result
 The plot below is the histogram containing the distribution of mean differences computed for the test, including the observed difference:
 
 <iframe
-  src="assets/hypothesis-test.html"
-  width="800"
-  height="600"
-  frameborder="0"
+  src='assets/hypothesis-test.html'
+  frameborder='0'
 ></iframe>
