@@ -47,23 +47,23 @@ Using the combined data provided by both datasets will allow for this exploratio
 
 Before any exploration of the data, cleaning the data is necessary for efficient and easy analysis.
 
-1. For convenience, I left merged the datasets on their keys, `'id'` (of `recipes`) and `'recipe_id'` (of `interactions`) . This merge ensures that all data is contained in one DataFrame.
+1. For convenience, I left merge the datasets on their keys, `'id'` (of `recipes`) and `'recipe_id'` (of `interactions`) . This merge ensures that all data is contained in one DataFrame.
 
-2. I performed data quality checks, including checking the datatypes each column stores.
+2. I perform data quality checks, including checking the datatypes each column stores.
 
-3. I filled all `'rating'` of `0.0` with `np.nan`. The scale of `'rating'` is `1, 2, 3, 4, 5`. Any `0` rating indicates that no star rating was given, which may disproportionately skew the data. Therefore, this replacement corrects this skew.
+3. I fill all `'rating'` of `0.0` with `np.nan`. The scale of `'rating'` is `1, 2, 3, 4, 5`. Any `0` rating indicates that no star rating was given, which may disproportionately skew the data. Therefore, this replacement corrects this skew.
 
-4. Afterwards, I computed the average rating for each recipe. The resulting series was concatenated to the larger DataFrame as `'avg_rating'` column.
+4. Afterwards, I compute the average rating for each recipe. The resulting series is concatenated to the larger DataFrame as `'avg_rating'` column.
 
-5. The columns `'submitted'` and `'date'` were converted to DateTime objects.
+5. The columns `'submitted'` and `'date'` are converted to DateTime objects.
 
 6. Cleaning the `'nutrition'` column, which was stored as a string object. I split the information into the following individual columns (as floats): `'calories (#)', 'total fat (PDV)', 'sugar (PDV)', 'sodium (PDV)', 'protein (PDV)', 'saturated fat (PDV)', 'carbohydrates (PDV)'`
 
-7. Using the `'tags'` column, I added the column `'diet'` that specifies if and what diet the recipe is most appropriate for. If the recipe is not apparently diet-specific, then the value is `np.nan`. This process involved:
+7. Using the `'tags'` column, I add the column `'diet'` that specifies if and what diet the recipe is most appropriate for. If the recipe is not apparently diet-specific, then the value is `np.nan`. This process involved:
 
-    1. Cleaning the `'tags'` column, which was originally stored as a string object. After cleaning, the `'tags'` column contained lists of strings.
+    1. Cleaning the `'tags'` column, which was originally stored as a string object. After cleaning, the `'tags'` column contain lists of strings.
 
-    2. Choosing and categorizing diets based on a specific tag. The diets chosen for this category were based on popularity or longevity or sustainability. Their corresponding tags were chosen from only the unique strings of the `'tags'` column based on best (general) descriptor. The following diets and their specific tags are:
+    2. Choosing and categorizing diets based on a specific tag. The diets chosen for this category are based on popularity or longevity or sustainability. Their corresponding tags are chosen from only the unique strings of the `'tags'` column based on best (general) descriptor(s). The following diets and their specific tags are:
 
         | DIET | TAG(S) |
         | ----------- | ----------- |
@@ -74,11 +74,11 @@ Before any exploration of the data, cleaning the data is necessary for efficient
         | `'high-protein'` | `'high-protein'` |
         | `'low-sodium'` | `'general health'` |
         
-        If any recipe contained multiple string tags for different diets, the most restrictive or specific diet was chosen.
+        If any recipe contains multiple string tags for different diets, the most restrictive or specific diet is chosen.
 
-8. Using the values of the column `'diet'`, I added an additional column `'is_diet_specific'` based on whether the value stored in `'diet'` is `np.nan`. This column is a boolean that indicates if the recipe is diet-specific (pertaining to a diet) or not.
+8. Using the values of the column `'diet'`, I add an additional column `'is_diet_specific'` based on whether the value stored in `'diet'` is `np.nan`. This column is a boolean that indicates if the recipe is diet-specific (pertaining to a diet) or not.
 
-After this cleaning process, I chose only the relevant columns for hypothesis testing and predictive modeling. Below is the head of the cleaned DataFrame, consisting only of said relevant columns:
+After this cleaning process, I choose only the relevant columns for hypothesis testing and predictive modeling. Below is the head of the cleaned DataFrame, consisting only of said relevant columns:
 
 | name                                 |     id |   minutes |   rating |   avg_rating |   calories (#) |   total fat (PDV) |   sugar (PDV) |   sodium (PDV) |   protein (PDV) |   saturated fat (PDV) |   carbohydrates (PDV) |   diet | is_diet_specific   |
 |:-------------------------------------|-------:|----------:|---------:|-------------:|---------------:|------------------:|--------------:|---------------:|----------------:|----------------------:|----------------------:|-------:|:-------------------|
@@ -88,7 +88,7 @@ After this cleaning process, I chose only the relevant columns for hypothesis te
 | 412 broccoli casserole               | 306168 |        40 |        5 |            5 |          194.8 |                20 |             6 |             32 |              22 |                    36 |                     3 |    nan | False              |
 | 412 broccoli casserole               | 306168 |        40 |        5 |            5 |          194.8 |                20 |             6 |             32 |              22 |                    36 |                     3 |    nan | False              |
 
-**NOTE**: Should any columns require further cleaning for the hypothesis testing or predictive modeling specifically, the adjustments will be included at these steps. 
+**NOTE**: Should any columns require further cleaning for the hypothesis testing or predictive modeling specifically, the adjustments will be included at those steps. 
 
 ### Univariate Analysis
 
@@ -99,3 +99,30 @@ After this cleaning process, I chose only the relevant columns for hypothesis te
 ## Assessment of Missingness
 
 ### NMAR Analysis
+
+### Missingness Dependency
+
+## Hypothesis Testing
+
+For the research question **do healthier diets tend to have higher ratings?**, I test whether there is a signficant difference in the ratings between diet-specific recipes or non-diet recipes. This hypothesis test will therefore provide basic insight into the public preferences of food diets, specifically into the perception of healthy diets. The alternative hypothesis claims that diet-specific recipes may be rated **higher** than non-diet recipes, under this perception of **increased health benefits** because of careful nutrient intake.
+
+**Null Hypothesis:** There is no difference between the average ratings for diet-specific and non-specific recipes.
+
+**Alternative Hypothesis:** Diet-specific recipes have higher average ratings compared to nonspecificc recipes. 
+
+**Test Statistic:** The difference in mean average ratings between the diet-specific and nonspecific recipes. 
+
+**Significance Level:** 0.05
+
+The observed statistic is **0.013** (rounded to three decimals). 
+
+I test under the null using a permutation test of 5000 simulations. **The resulting p-value is 0.00**, and so I **reject** the null under a 0.05 significance level. This result indicates that the average ratings of diet-specific recipes tend to be higher than nonspecific recipes. Ultimately, this may be attributed to the health benefits of maintaining a health-related diet, whether it be for boosted immunity, weight loss, muscle gain, etc. 
+
+The plot below is the histogram containing the distribution of mean differences computed for the test, including the observed difference:
+
+<iframe
+  src="assets/hypothesis-test.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
