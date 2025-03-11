@@ -16,28 +16,28 @@ The first dataset `recipes` has 83782 rows and 12 columns, containing the follow
 
 | COLUMN | DESCRIPTION |
 | ----------- | ----------- |
-| `'name'` | Name of the recipe |
-| `'id'` | Unique ID given to the recipe |
-| `'minutes'` | Number of minutes to prepare the recipe |
-| `'contributer_id'` | ID of individual who submitted the recipe |
-| `'submitted'` | Date on which recipe was submitted |
-| `'tags'` | Food.com tags to categorize the recipe |
-| `'nutrition'` | The following nutritional information as percent daily values (PDV): `'['calories (#), total fat (PDV), sugar (PDV), sodium (PDV), protein (PDV), saturated fat (PDV), carbohydrates (PDV)]'` |
-| `'n_steps'` | Number of steps |
-| `'steps'` | Steps to preparing the recipe, in order |
-| `'description'` | A user-provided description |
-| `'ingredients'` | All of the ingredients used |
-| `'n_ingredients'` | Number of ingredients |
+| `'name'` | name of the recipe |
+| `'id'` | unique ID given to the recipe |
+| `'minutes'` | number of minutes to prepare the recipe |
+| `'contributer_id'` | the ID of individual who submitted the recipe |
+| `'submitted'` | date on which recipe was submitted |
+| `'tags'` | food.com tags to categorize the recipe |
+| `'nutrition'` | the following nutritional information as percent daily values (PDV): `'['calories (#), total fat (PDV), sugar (PDV), sodium (PDV), protein (PDV), saturated fat (PDV), carbohydrates (PDV)]'` |
+| `'n_steps'` | number of steps |
+| `'steps'` | steps to preparing the recipe, in order |
+| `'description'` | a user-provided description |
+| `'ingredients'` | all of the ingredients used |
+| `'n_ingredients'` | number of ingredients |
 
 The second dataset `interactions` has 731927 rows of user ratings and 5 columns:
 
 | COLUMN | DESCRIPTION |
 | ----------- | ----------- |
-| `'user_id'` | User ID of an individual |
-| `'recipe_id'` | Recipe ID that this user interacted with |
-| `'date'` | Date of their interaction |
-| `'rating'` | Rating given |
-| `'review'` | Review given by user |
+| `'user_id'` | user ID of an individual |
+| `'recipe_id'` | recipe ID that this user interacted with |
+| `'date'` | date of their interaction |
+| `'rating'` | rating given |
+| `'review'` | review given by user |
 
 Using the combined data provided by both datasets will allow for this exploration into the relationship of ratings and diets.
 
