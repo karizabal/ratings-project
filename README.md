@@ -28,7 +28,6 @@ The first dataset `recipes` has 83782 rows and 12 columns, containing the follow
 | `'description'` | A user-provided description |
 | `'ingredients'` | All of the ingredients used |
 | `'n_ingredients'` | Number of ingredients |
-| |
 
 The second dataset `interactions` has 731927 rows of user ratings and 5 columns:
 
@@ -39,7 +38,6 @@ The second dataset `interactions` has 731927 rows of user ratings and 5 columns:
 | `'date'` | Date of their interaction |
 | `'rating'` | Rating given |
 | `'review'` | Review given by user |
-| |
 
 Using the combined data provided by both datasets will allow for this exploration into the relationship of ratings and diets.
 
@@ -50,14 +48,23 @@ Using the combined data provided by both datasets will allow for this exploratio
 Before any exploration of the data, cleaning the data is necessary for efficient and easy analysis.
 
 1. For convenience, I left merged the datasets on their keys, `'id'` (of `recipes`) and `'recipe_id'` (of `interactions`) . This merge ensures that all data is contained in one DataFrame.
+
 2. I performed data quality checks, including checking the datatypes each column stores.
+
 3. I filled all `'rating'` of `0.0` with `np.nan`. The scale of `'rating'` is `1, 2, 3, 4, 5`. Any `0` rating indicates that no star rating was given, which may disproportionately skew the data. Therefore, this replacement corrects this skew.
+
 4. Afterwards, I computed the average rating for each recipe. The resulting series was concatenated to the larger DataFrame as `'avg_rating'` column.
+
 5. The columns `'submitted'` and `'date'` were converted to DateTime objects.
+
 6. Cleaning the `'nutrition'` column, which was stored as a string object. I split the information into the following individual columns (as floats): `'calories (#)', 'total fat (PDV)', 'sugar (PDV)', 'sodium (PDV)', 'protein (PDV)', 'saturated fat (PDV)', 'carbohydrates (PDV)'`
+
 7. Using the `'tags'` column, I added the column `'diet'` that specifies if and what diet the recipe is most appropriate for. If the recipe is not apparently diet-specific, then the value is `np.nan`. This process involved:
+
     1. Cleaning the `'tags'` column, which was originally stored as a string object. After cleaning, the `'tags'` column contained lists of strings.
+
     2. Choosing and categorizing diets based on a specific tag. The diets chosen for this category were based on popularity or longevity or sustainability. Their corresponding tags were chosen from only the unique strings of the `'tags'` column based on best (general) descriptor. The following diets and their specific tags are:
+
         | DIET | TAG(S) |
         | ----------- | ----------- |
         | `'vegan'` | `'vegan'` |
@@ -68,6 +75,7 @@ Before any exploration of the data, cleaning the data is necessary for efficient
         | `'low-sodium'` | `'general health'` |
         
         If any recipe contained multiple string tags for different diets, the most restrictive or specific diet was chosen.
+
 8. Using the values of the column `'diet'`, I added an additional column `'is_diet_specific'` based on whether the value stored in `'diet'` is `np.nan`. This column is a boolean that indicates if the recipe is diet-specific (pertaining to a diet) or not.
 
 After this cleaning process, I chose only the relevant columns for hypothesis testing and predictive modeling. Below is the head of the cleaned DataFrame, consisting only of said relevant columns:
