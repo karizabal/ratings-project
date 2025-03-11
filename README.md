@@ -6,9 +6,9 @@ Author(s): Kai Arizabal
 
 ## Introduction
 
-Having a balanced diet is essential for maintaining a healthy life. Proper diets provide necessary nutrition, ultimately boosting immunity against chronic diseases and improving physical and emotional health. Although the best diets vary between individuals, all healthy diets follow the same basic principles. Sustaining a healthy diet requires balancing nutrients, reducing sodium and sugar intake, and avoiding processed foods. Using datasets containing recipes and ratings from [food.com](https://www.food.com/) (originally scraped by Prasad Majumder et al. for their research into generating personalized recipes), this project investigates public preferences of health and diet. 
+Having a balanced diet is essential for maintaining a healthy life. Proper diets provide necessary nutrition, ultimately boosting immunity against chronic diseases and improving physical and emotional health. Although the best diets vary between individuals, all healthy diets follow basic principles. Sustaining a healthy diet requires balancing nutrients, reducing sodium and sugar intake, and avoiding processed foods. Using datasets containing recipes and ratings from [food.com](https://www.food.com/) (originally scraped by Prasad Majumder et al. for their research into generating personalized recipes), this project investigates public preferences of health and diet. 
 
-The research question guiding this project is: **Do healthier diets tend to have higher ratings?** Exploring this question provides insight into popular diets, particularly if healthy foods are rated based on their health benefits, taste, or convenience, therefore elucidating the best diets for a healthy life.
+The research question guiding this project is: **Do healthier diets tend to have higher ratings?** Exploring this question provides insight into popular diets, particularly if healthy foods are rated based on their health benefits, taste, or convenience, therefore elucidating the most accessible and effective diets for a healthy life.
 
 The first dataset `recipes` has 83782 rows and 12 columns, containing the following information:
 
@@ -156,7 +156,7 @@ The plot below is the histogram containing the distribution of mean differences 
 
 <iframe
   src='assets/hypothesis-test.html'
-  width='900'
+  width='800'
   height='500'
   frameborder='0'
 ></iframe>
