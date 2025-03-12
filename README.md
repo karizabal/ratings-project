@@ -195,3 +195,5 @@ As seen in the EDA, the distributions of ratings and diet-related metrics (such 
 ## Baseline Model
 
 ## Final Model
+
+## Fairness Analysis
