@@ -1,8 +1,8 @@
 # Exploring the Effect of Diet Health on Recipe Ratings
 
-Exploring the Effect of Diet Health on Recipe Ratings is a data science project conducted at UCSD. This project investigates the relationship of ratings of online published recipes and their health benefits through methods such as exploratory data analysis, hypothesis testing, and predictive modeling. The following provides a report of this investigation. 
+Exploring the Effect of Diet Health on Recipe Ratings is a data science project conducted at UCSD. This project investigates the relationship of ratings of online published recipes and their health benefits through methods such as exploratory data analysis, hypothesis testing, and predictive modeling. The following is a report of this investigation. 
 
-Author(s): Kai Arizabal
+Author: Kai Arizabal
 
 ## Introduction
 
@@ -10,7 +10,7 @@ Having a balanced diet is essential for maintaining a healthy life. Proper diets
 
 The research question guiding this project is: **Do healthier diets tend to have higher ratings?** 
 
-Exploring this question provides insight into popular diets, particularly if diet-specific foods are rated based on their health benefits, taste, or convenience, therefore elucidating the most accessible and effective diets for a healthy life.
+Exploring this question provides insight into popular diets, particularly if diet-specific foods are rated based on their health benefits, taste, or convenience, therefore elucidating the most accessible yet effective diets for a healthy life.
 
 The first dataset `recipes` has 83782 rows and 12 columns, containing the following information:
 
@@ -120,12 +120,9 @@ I will first test the dependency of `'rating'` on `'calories (#)'`.
 
 Below are analyses of the observed distribution of `'calories (#)'` when `'rating'` is missing and not missing. 
 
-<iframe
-  src='assets/calories-dependency-kde.html'
-  width='800'
-  height='500'
-  frameborder='0'
-></iframe>
+<iframe src='assets/calories-dependency-kde.html' width='800' height='500' frameborder='0'></iframe>
+
+**NOTE**: The above distribution only visualizes 95% of the data. I removed outliers for better scaling and interpretability.
 
 The observed means of the above distribution:
 
@@ -138,12 +135,7 @@ The observed statistic is 69.01.
 
 **The p-value is 0.00**, so I **reject** the null under a 0.05 significance level. Therefore, the missingness of `'rating'` may be dependent on `'calories (#)'`. Below is the empirical distribution of the test statistics (and observed statistic):
 
-<iframe
-  src='assets/calories-dependency-test.html'
-  width='800'
-  height='500'
-  frameborder='0'
-></iframe>
+<iframe src='assets/calories-dependency-test.html' width='800' height='500' frameborder='0' ></iframe>
 
 Now, I will test the dependency of `'rating'` on `'minutes'`.
 
@@ -153,12 +145,9 @@ Now, I will test the dependency of `'rating'` on `'minutes'`.
 
 Below are analyses of the observed distribution of `'minutes'` when `'rating'` is missing and not missing. 
 
-<iframe
-  src='assets/minutes-dependency-kde.html'
-  width='800'
-  height='500'
-  frameborder='0'
-></iframe>
+<iframe src='assets/minutes-dependency-kde.html' width='800' height='500' frameborder='0' ></iframe>
+
+**NOTE**: The above distribution only visualizes 95% of the data. I removed outliers for improved scaling and interpretability.
 
 The observed means of the above distribution:
 
@@ -171,12 +160,7 @@ The observed statistic is 51.45.
 
 **The p-value is 0.125**, therefore I **fail to reject** the null under a 0.05 significance level. Accordingly, the missingness of `'rating'` may not be dependent on `'minutes'`. Below is the empirical distribution of the test statistics (and observed statistic):
 
-<iframe
-  src='assets/minutes-dependency-test.html'
-  width='800'
-  height='500'
-  frameborder='0'
-></iframe>
+<iframe src='assets/minutes-dependency-test.html' width='800' height='500' frameborder='0' ></iframe>
 
 ## Hypothesis Testing
 
@@ -196,11 +180,18 @@ I test under the null using a permutation test of 5000 simulations. **The result
 
 The plot below is the histogram containing the distribution of mean differences computed for the test, including the observed difference:
 
-<iframe
-  src='assets/hypothesis-test.html'
-  width='800'
-  height='500'
-  frameborder='0'
-></iframe>
+<iframe src='assets/hypothesis-test.html' width='800' height='500' frameborder='0' ></iframe>
 
 ## Framing a Prediction Problem
+
+Based on the results of previous sections, there is a likely correlation between the (average) ratings of recipes and their nutritional values or health benefits. To further this investigation into public preferences for healthy diets—and their implications of the best general diet foods for better health—I will **predict average ratings** based on diet-related metrics. This prediction problem also addresses the research question of the previous sections, **Do healthier diets tend to have higher ratings?**
+
+Accordingly, this prediction problem requires a multiclass classification model. Since `'avg_rating'` is an ordinal qualitative variable of values `1, 2, 3, 4, 5`, this predictive model should be able to predict any average rating in this range.
+
+The response variable is `'avg_rating'`, as it provides more comprehensive insights into public preferences. Additionally, the results of the hypothesis test suggest that average ratings may be tied to diet specificity. 
+
+As seen in the EDA, the distributions of ratings and diet-related metrics (such as macronutrients) tend to be highly skewed. Therefore, I will use the F1-score to evaluate the model's performance, as this metric considers these class imbalances.
+
+## Baseline Model
+
+## Final Model
