@@ -16,28 +16,28 @@ The first dataset `recipes` has 83782 rows and 12 columns, containing the follow
 
 | COLUMN | DESCRIPTION |
 | ----------- | ----------- |
-| `'name'` | name of the recipe |
-| `'id'` | unique ID given to the recipe |
-| `'minutes'` | number of minutes to prepare the recipe |
-| `'contributer_id'` | the ID of individual who submitted the recipe |
-| `'submitted'` | date on which recipe was submitted |
-| `'tags'` | food.com tags to categorize the recipe |
-| `'nutrition'` | the following nutritional information as percent daily values (PDV): `'['calories (#), total fat (PDV), sugar (PDV), sodium (PDV), protein (PDV), saturated fat (PDV), carbohydrates (PDV)]'` |
-| `'n_steps'` | number of steps |
-| `'steps'` | steps to preparing the recipe, in order |
-| `'description'` | a user-provided description |
-| `'ingredients'` | all of the ingredients used |
-| `'n_ingredients'` | number of ingredients |
+| `'name'` | Name of the recipe |
+| `'id'` | Unique ID given to the recipe |
+| `'minutes'` | Number of minutes to prepare the recipe |
+| `'contributer_id'` | The ID of individual who submitted the recipe |
+| `'submitted'` | Date on which recipe was submitted |
+| `'tags'` | Food.com tags to categorize the recipe |
+| `'nutrition'` | The following nutritional information as percent daily values (PDV): `'['calories (#), total fat (PDV), sugar (PDV), sodium (PDV), protein (PDV), saturated fat (PDV), carbohydrates (PDV)]'` |
+| `'n_steps'` | Number of steps |
+| `'steps'` | Steps to preparing the recipe, in order |
+| `'description'` | A user-provided description |
+| `'ingredients'` | All of the ingredients used |
+| `'n_ingredients'` | Number of ingredients |
 
 The second dataset `interactions` has 731927 rows of user ratings and 5 columns:
 
 | COLUMN | DESCRIPTION |
 | ----------- | ----------- |
-| `'user_id'` | user ID of an individual |
-| `'recipe_id'` | recipe ID that this user interacted with |
-| `'date'` | date of their interaction |
-| `'rating'` | rating given |
-| `'review'` | review given by user |
+| `'user_id'` | User ID of an individual |
+| `'recipe_id'` | Recipe ID that this user interacted with |
+| `'date'` | Date of their interaction |
+| `'rating'` | Rating given |
+| `'review'` | Review given by user |
 
 Using the combined data provided by both datasets will allow for this exploration into the relationship of ratings and diets.
 
@@ -65,18 +65,16 @@ Before any exploration of the data, cleaning the data is necessary for efficient
 
     1. Cleaning the `'tags'` column, which was originally stored as a string object. After cleaning, the `'tags'` column contain lists of strings.
 
-    2. Choosing and categorizing diets based on a specific tag. The diets chosen for this category are based on popularity or longevity or sustainability. Their corresponding tags are chosen from only the unique strings of the `'tags'` column based on best (general) descriptor(s). The following diets and their specific tags are:
+    2. Choosing and categorizing diets based on a specific tag. The diets chosen for this category are based on popularity and sustainability. Their corresponding tags are chosen from only the unique strings in the `'tags'` column based on best (general) descriptor(s). The following diets and their specific tags are:
 
         | DIET | TAG(S) |
         | ----------- | ----------- |
         | `'vegan'` | `'vegan'` |
         | `'vegetarian'` | `'vegetarian'` |
         | `'mediterranean'` | `'high-fiber'` or `'low-saturated-fat'` |
-        | `'keto'` | `'low-carb'` |
-        | `'high-protein'` | `'high-protein'` |
-        | `'low-sodium'` | `'general health'` |
-        
-        If any recipe contains multiple string tags for different diets, the most restrictive or specific diet is chosen.
+        | `'general_health'` | `'low-sodium'` , `'low-calorie'`, `'low-carb'`, `'low-cholesterol'`, or `'low-fat'`|
+
+        Any recipe may be appropriate for multiple diets.
 
 8. Using the values of the column `'diet'`, I add an additional column `'is_diet_specific'` based on whether the value stored in `'diet'` is `np.nan`. This column is a boolean that indicates if the recipe is diet-specific (pertaining to a diet) or not.
 
@@ -133,7 +131,7 @@ The observed means of the above distribution:
 
 The observed statistic is 69.01.
 
-**The p-value is 0.00**, so I **reject** the null under a 0.05 significance level. Therefore, the missingness of `'rating'` may be dependent on `'calories (#)'`. Below is the empirical distribution of the test statistics (and observed statistic):
+**The p-value is 0.00**, so I **reject** the null at a 0.05 significance level. Therefore, the missingness of `'rating'` may be dependent on `'calories (#)'`. Below is the empirical distribution of the test statistics (and observed statistic):
 
 <iframe src='assets/calories-dependency-test.html' width='800' height='500' frameborder='0' ></iframe>
 
@@ -158,7 +156,7 @@ The observed means of the above distribution:
 
 The observed statistic is 51.45.
 
-**The p-value is 0.125**, therefore I **fail to reject** the null under a 0.05 significance level. Accordingly, the missingness of `'rating'` may not be dependent on `'minutes'`. Below is the empirical distribution of the test statistics (and observed statistic):
+**The p-value is 0.125**, therefore I **fail to reject** the null at a 0.05 significance level. Accordingly, the missingness of `'rating'` may not be dependent on `'minutes'`. Below is the empirical distribution of the test statistics (and observed statistic):
 
 <iframe src='assets/minutes-dependency-test.html' width='800' height='500' frameborder='0' ></iframe>
 
@@ -174,9 +172,9 @@ For the research question **do healthier diets tend to have higher ratings?**, I
 
 > **Significance Level:** 0.05
 
-The observed statistic is **0.013** (rounded to three decimals). 
+The observed statistic is **0.014** (rounded to three decimals). 
 
-I test under the null using a permutation test of 5000 simulations. **The resulting p-value is 0.00**, and so I **reject** the null under a 0.05 significance level. This result indicates that the average ratings of diet-specific recipes tend to be higher than nonspecific recipes. Ultimately, this may be attributed to the health benefits of maintaining a health-related diet, whether it be for boosted immunity, improved health, weight loss, muscle gain, etc. 
+I test under the null using a permutation test of 5000 simulations. **The resulting p-value is 0.00**, and so I **reject** the null at a 0.05 significance level. This result indicates that the average ratings of diet-specific recipes tend to be higher than nonspecific recipes. Ultimately, this may be attributed to the health benefits of maintaining a health-related diet, whether it be for boosted immunity, overall health, weight loss, muscle gain, etc. 
 
 The plot below is the histogram containing the distribution of mean differences computed for the test, including the observed difference:
 
@@ -184,15 +182,23 @@ The plot below is the histogram containing the distribution of mean differences 
 
 ## Framing a Prediction Problem
 
-Based on the results of previous sections, there is a likely correlation between the (average) ratings of recipes and their nutritional values or health benefits. To further this investigation into public preferences for healthy diets—and their implications of the best general diet foods for better health—I will **predict average ratings** based on diet-related metrics. This prediction problem also addresses the research question of the previous sections, **Do healthier diets tend to have higher ratings?**
+Based on the results of previous sections, there is a likely correlation between the (average) ratings of recipes and their nutritional values or health benefits. To further this investigation into public preferences for healthy diets—and their implications of the best general diet foods for better health—I will **predict average ratings** based on diet-related metrics. This prediction problem also addresses the research question of the previous sections (Do healthier diets tend to have higher ratings?).
 
-Accordingly, this prediction problem requires a multiclass classification model. Since `'avg_rating'` is an ordinal qualitative variable of values `1, 2, 3, 4, 5`, this predictive model should be able to predict any average rating in this range.
+This prediction problem requires a multiclass classification model. The response variable is `'avg_rating'`, as it provides more comprehensive insights into public preferences, and the results of the hypothesis test suggest that average ratings may be tied to diet specificity. Since this variable is an qualitative ordinal variable of values `1, 2, 3, 4, 5`, this predictive model should be able to predict any average rating in this range.
 
-The response variable is `'avg_rating'`, as it provides more comprehensive insights into public preferences. Additionally, the results of the hypothesis test suggest that average ratings may be tied to diet specificity. 
+**NOTE:** 2777 average ratings are missing. Since this missing data is only a fraction of the entire dataset, I will drop these rows for this problem.
 
-As seen in the EDA, the distributions of ratings and diet-related metrics (such as macronutrients) tend to be highly skewed. Therefore, I will use the F1-score to evaluate the model's performance, as this metric considers these class imbalances.
+As seen in the EDA, the distribution of average ratings tend to be highly skewed. Therefore, I will use both accuracy and F1-score to evaluate the model's performance: accuracy to assess the model performance overall, and F1 to assess the model performance per class—those being `1, 2, 3, 4, 5`. Additionally, I will split the dataset into 75% training and 25% testing data. 
+
+At the time of prediction, the data I would know is only the information recorded in the `recipes` dataset. These data are recorded when the recipe is submitted and published online. The most relevant data for this predictive model is their nutritional values (`'nutrition'`) and descriptive tags (`'tags'`) for identifying diet specificity. 
 
 ## Baseline Model
+
+For the baseline model, I used a Random Forest Classifier using the features `'calories (#)'` and `'diet'`. These data consist of quantitative numerical and qualitative nomial values, respectively. 
+
+As described in the EDA, `'calories (#)'` has many outliers. Consequently, I use a `RobustScaler` to address this skew for the model. For `'diet'`, I one hot encode the diet types. Since many recipes are appropriate for multiple diets and are thus stored as lists, I use a count vectorizer to perform this transformation. Since `CountVectorizer` is commonly used on text string data, I also use a `FunctionTransformer` to clean the data, joining the lists into a string or an empty string if `np.nan`. This ensures that the vectorizer works as intended.
+
+For this model, the accuracy is **0.813**, and the F1 scores for each rating are: **0.119, 0.276, 0.35 , 0.603, 0.883**. Even though the accuracy is 81%, this metric does not consider the skew towards higher average ratings. The scores for lower average ratings, `1, 2, 3`, are relatively low compared to `4` and `5`, where the model's performance improves significantly because of the aforementioned skew towards higher ratings. This imbalance will be addressed in the final model.
 
 ## Final Model
 
