@@ -116,11 +116,11 @@ I now explore the distribution of average ratings based on diet specificity.
 
 <iframe src='assets/avg_ratings_distribution_on_diet.html' width='800' height='500' frameborder='0' ></iframe>
 
-This probability distribution suggests that users are more likely to give higher ratings, thus corroborating a selection bias among ratings. However, it also appears that diet-specific recipes tend to get rated higher more often than nonspecific recipes. Given this, I next explore the nutritional content across diet categories and ratings.
+This probability distribution suggests that users are more likely to give higher ratings, thus corroborating a selection bias among ratings. However, it also appears that diet-specific recipes tend to get rated higher more often than nonspecific recipes. 
 
-For each nutrient besides sodium, I made a box plot visualization by diet. The most interesting distributions are shown below:
+For each nutrient besides sodium, I made a box plot visualization by diet. The most interesting visuals are shown below:
 
-<iframe src='assets/assets/box_prop_sugar.html' width='800' height='500' frameborder='0' ></iframe>
+<iframe src='assets/assets/box_prop_carbs.html' width='800' height='500' frameborder='0' ></iframe>
 
 As depicted above, the specific diets of mediterranean, vegetarian, and vegan typically have higher proportions of carbohydrates in their recipes. Higher content of carbohydrates suggest more unprocessed ingredients, such as whole grains or vegetables. This discrepancy among diets and general diets may be relevant to the high average ratings of diet-specific recipes.
 
@@ -207,7 +207,7 @@ The observed means of the above distribution:
 
 The observed statistic is 0.003.
 
-**The p-value is 0.099**, therefore I **fail to reject** the null at a 0.05 significance level. Accordingly, the missingness of `'rating'` may not be dependent on `'prop carbohydrates'`. Below is the empirical distribution of the test statistics (and observed statistic):
+**The p-value is 0.083**, therefore I **fail to reject** the null at a 0.05 significance level. Accordingly, the missingness of `'rating'` may not be dependent on `'prop carbohydrates'`. Below is the empirical distribution of the test statistics (and observed statistic):
 
 <iframe src='assets/carbs-dependency-test.html' width='800' height='500' frameborder='0' ></iframe>
 
@@ -280,11 +280,6 @@ To assess the fairness of the model, I will answer the following question: **Doe
 > **Significance Level:** 0.05
 
 <iframe src='assets/fairness-analysis.html' width='800' height='500' frameborder='0' ></iframe>
-
-| is_diet_specific   |   observed F1 scores |
-|:-------------------|---------------------:|
-| False              |             0.919413 |
-| True               |             0.926589 |
 
 The observed statistic is **0.007** (rounded to three decimals). 
 
