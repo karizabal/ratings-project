@@ -120,7 +120,7 @@ This probability distribution suggests that users are more likely to give higher
 
 For each nutrient besides sodium, I made a box plot visualization by diet. The most interesting visuals are shown below:
 
-<iframe src='assets/assets/box_prop_carbs.html' width='800' height='500' frameborder='0' ></iframe>
+<iframe src='assets/box_prop_carbs.html' width='800' height='500' frameborder='0' ></iframe>
 
 As depicted above, the specific diets of mediterranean, vegetarian, and vegan typically have higher proportions of carbohydrates in their recipes. Higher content of carbohydrates suggest more unprocessed ingredients, such as whole grains or vegetables. This discrepancy among diets and general diets may be relevant to the high average ratings of diet-specific recipes.
 
