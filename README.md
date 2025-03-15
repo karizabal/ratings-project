@@ -207,7 +207,7 @@ The observed means of the above distribution:
 
 The observed statistic is 0.003.
 
-**The p-value is 0.083**, therefore I **fail to reject** the null at a 0.05 significance level. Accordingly, the missingness of `'rating'` may not be dependent on `'prop carbohydrates'`. Below is the empirical distribution of the test statistics (and observed statistic):
+**The p-value is 0.091**, therefore I **fail to reject** the null at a 0.05 significance level. Accordingly, the missingness of `'rating'` may not be dependent on `'prop carbohydrates'`. Below is the empirical distribution of the test statistics (and observed statistic):
 
 <iframe src='assets/carbs-dependency-test.html' width='800' height='500' frameborder='0' ></iframe>
 
@@ -249,7 +249,7 @@ For the baseline model, I used a Random Forest Classifier with the features `'ca
 
 To transform `'calories (#)'`, I use a `RobustScaler` to address the outliers in the data. For `'diet'`, I one hot encode the diet types. Since many recipes are appropriate for multiple diets (stored as lists), I use a count vectorizer to perform this transformation. Since `CountVectorizer` is commonly used on text string data, I also use a `FunctionTransformer` to clean the data, joining the lists into a string or an empty string, if `np.nan`. This ensures that the vectorizer works as intended.
 
-For this model, the accuracy is **0.811**, and the F1 scores for each rating are: **0.109, 0.284, 0.336, 0.597, 0.882**. Even though the accuracy is 81%, this metric does not consider the imbalance of higher average ratings. The scores for lower average ratings, `1, 2, 3`, are relatively low compared to `4` and `5`, where the model's performance improves significantly because of this skew.
+For this model, the accuracy is **0.812**, and the F1 scores for each rating are: **0.124, 0.3  , 0.355, 0.601, 0.882**. Even though the accuracy is 81%, this metric does not consider the imbalance of higher average ratings. The scores for lower average ratings, `1, 2, 3`, are relatively low compared to `4` and `5`, where the model's performance improves significantly because of this skew.
 
 ## Final Model
 
@@ -265,7 +265,7 @@ The final model is a Random Forest Classifier using the features `'calories (#)'
 
 For the hyperparameters of the model, I ultimately chose the default hyperparameters. After several rounds of `GridSearchCV`, the best hyperparameters only provided a marginal improvement to the model's performance. Additionally, at times, the tuned hyperparameters performed worse for lower rating classes than the default hyperparameters. Given this, I opted for the default settings to maintain a balanced and computationally efficient model.
 
-The accuracy is now **0.927**, which is a 0.166 increase from the baseline model. Additionallty, the F1 scores for all classes also increased signficantly: **0.433, 0.664, 0.675, 0.859, 0.953**. Since both metrics increased, the final model has improved from the baseline model's performance.
+The accuracy is now **0.926**, which is a 0.114 increase from the baseline model. Additionallty, the F1 scores for all classes also increased signficantly: **0.356, 0.649, 0.70 , 0.858, 0.952**. Since both metrics increased, the final model has improved from the baseline model's performance.
 
 ## Fairness Analysis
 
@@ -283,4 +283,4 @@ To assess the fairness of the model, I will answer the following question: **Doe
 
 The observed statistic is **0.007** (rounded to three decimals). 
 
-**The resulting p-value is 0.0012**, so I **reject** the null at a 0.05 significance level. This indicates that the model may be unfair, as it performs better for diet-specific recipes than for nonspecific recipes. This result may suggest that the feature `'diet'` may cause the model to perform significantly better for diet recipes. This bias can stem from a greater representation or greater predictive power of diet-specific recipes in the training dataset. 
+**The resulting p-value is 0.0002**, so I **reject** the null at a 0.05 significance level. This indicates that the model may be unfair, as it performs better for diet-specific recipes than for nonspecific recipes. This result may suggest that the feature `'diet'` may cause the model to perform significantly better for diet recipes. This bias can stem from a greater representation or greater predictive power of diet-specific recipes in the training dataset. 
